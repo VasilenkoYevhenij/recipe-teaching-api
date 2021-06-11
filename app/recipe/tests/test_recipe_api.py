@@ -20,7 +20,7 @@ RECIPES_URL = reverse('recipe:recipe-list')
 
 def image_upload_url(recipe_id):
     """Return URL for recipe image upload"""
-    return reverse('recipe:recipe-upload-image')
+    return reverse('recipe:recipe-upload-image', args=[recipe_id])
 
 
 def detail_url(recipe_id):
@@ -220,7 +220,7 @@ class RecipeImageUploadTests(TestCase):
         self.client.force_authenticate(self.user)
         self.recipe = sample_recipe(user=self.user)
 
-    def tearDownClass(self):
+    def tearDown(self):
         self.recipe.image.delete()
 
     def test_upload_image_to_recipe(self):
